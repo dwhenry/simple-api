@@ -35,8 +35,8 @@ describe User do
   describe '#authentification' do
     it 'checks the password matches' do
       user = User.new(name: 'Dave', password: 'abcde5')
-      expect(user.authenticate('abcde5')).to be true
-      expect(user.authenticate('other1')).to be false
+      expect(user.authenticate!('abcde5')).to be true
+      expect(user.authenticate!('other1')).to be false
     end
   end
 end

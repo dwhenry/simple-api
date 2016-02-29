@@ -6,7 +6,8 @@ class ApplicationController < ActionController::Base
   protected
 
   def authenticate
-    unless session[:auth_token].present? && [params[:auth_token], env['AUTH_TOKEN']].include?(session[:auth_token])
+    @user = User.authenticate(params[:auth_token] || env['AUTH_TOKEN'])
+    unless @user
       render json: { status: 'error', messages: ['user not authorised'] }, status: 400
     end
   end
