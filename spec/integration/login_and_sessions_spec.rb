@@ -24,7 +24,28 @@ describe 'User login and sessions' do
     )
   end
 
-  it 'auth_token can be used to access the rest of the system'
+  context 'auth_token can be used to access the rest of the system' do
+    before do
+      post '/login', name: 'David', password: 'qwerty123'
+      @auth_token = JSON.parse(response.body)["auth_token"]
+    end
+
+    it '400 when no auth passed' do
+      expect(get games_path).to eq(400)
+    end
+
+    it '200 when passed by params' do
+      expect(get games_path, auth_token: @auth_token).to eq(200)
+    end
+
+    it '200 when passed by headers' do
+      expect(get games_path, nil, 'AUTH_TOKEN' => @auth_token).to eq(200)
+    end
+  end
+
+  it 'requires an auth_token to be valid' do
+    expect(get games_path).to eq(400)
+  end
 
   it 'auth_token is valid for 4 hours'
 
