@@ -11,14 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160301082309) do
+ActiveRecord::Schema.define(version: 20160302082944) do
 
   create_table "games", force: :cascade do |t|
     t.string   "uuid"
     t.string   "state"
     t.integer  "winner_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "max_players"
   end
 
   add_index "games", ["winner_id"], name: "index_games_on_winner_id"

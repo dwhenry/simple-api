@@ -14,7 +14,7 @@ class GameApi
     @id = id
     if players
       @game = CoEngine.load(players: players)
-      Game.create(uuid: id, state: @game.state)
+      Game.create(uuid: id, state: @game.state, max_players: players.count)
     elsif players
       @game = CoEngine.load(read)
     end

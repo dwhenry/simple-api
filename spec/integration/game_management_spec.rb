@@ -45,5 +45,119 @@ describe 'game management' do
       expect(response_json['actions']).to eq(['leave'])
     end
   end
+
+  context 'listing player stats for games' do
+    it 'will return count games where you are waiting for players to join' do
+      Game.create!(state: "CoEngine::WaitingForPlayers", uuid: 'uuid', max_players: 4, players: [ Player.new(user: user) ])
+
+      get games_path, nil, 'AUTH_TOKEN' => user.auth_token
+      expect(JSON.parse(response.body)).to eq(
+        "playing" => 0,
+        "won" => 0,
+        "lost" => 0,
+        "wainting_for_players" => 1,
+        "can_be_joined" => 0
+      )
+    end
+
+    it 'will return count of playing games' do
+      Game.create!(state: "CoEngine::PickTile", uuid: 'uuid', max_players: 4, players: [ Player.new(user: user) ])
+
+      get games_path, nil, 'AUTH_TOKEN' => user.auth_token
+      expect(JSON.parse(response.body)).to eq(
+        "playing" => 1,
+        "won" => 0,
+        "lost" => 0,
+        "wainting_for_players" => 0,
+        "can_be_joined" => 0
+      )
+    end
+
+    it 'will return count of won games' do
+      Game.create!(state: "CoEngine::Completed", winner: user, uuid: 'uuid', max_players: 4, players: [ Player.new(user: user) ])
+
+      get games_path, nil, 'AUTH_TOKEN' => user.auth_token
+      expect(JSON.parse(response.body)).to eq(
+        "playing" => 0,
+        "won" => 1,
+        "lost" => 0,
+        "wainting_for_players" => 0,
+        "can_be_joined" => 0
+      )
+    end
+
+    it 'will return count of lost games' do
+      Game.create!(state: "CoEngine::Completed", winner: nil, uuid: 'uuid', max_players: 4, players: [ Player.new(user: user) ])
+
+      get games_path, nil, 'AUTH_TOKEN' => user.auth_token
+      expect(JSON.parse(response.body)).to eq(
+        "playing" => 0,
+        "won" => 0,
+        "lost" => 1,
+        "wainting_for_players" => 0,
+        "can_be_joined" => 0
+      )
+    end
+
+    it 'will return count of joinable games' do
+      Game.create!(state: "CoEngine::WaitingForPlayers", uuid: 'uuid', max_players: 4, players: [  ])
+
+      get games_path, nil, 'AUTH_TOKEN' => user.auth_token
+      expect(JSON.parse(response.body)).to eq(
+        "playing" => 0,
+        "won" => 0,
+        "lost" => 0,
+        "wainting_for_players" => 0,
+        "can_be_joined" => 1
+      )
+    end
+  end
+
+  context '#list of game for a given state' do
+    context 'for the playing state' do
+      before do
+        Game.create!(state: "CoEngine::PickTile", uuid: 'uuid', max_players: 4, players: [
+          Player.new(user: user),
+          Player.new(user: User.create(name: 'Fred', password: 'qwerty123')),
+          Player.new(user: User.create(name: 'John', password: 'qwerty123'))
+        ])
+      end
+
+      it 'return details for each game the current user is playing' do
+        get game_path('playing'), nil, 'AUTH_TOKEN' => user.auth_token
+
+        expect(JSON.parse(response.body)).to eq(
+          "playing" => [
+            { "id" => "uuid", "max_players" => 4, "players" => [ "David", "Fred", "John" ], "winner" => nil }
+          ]
+        )
+      end
+    end
+
+    context 'for the won state' do
+      before do
+        Game.create!(state: "CoEngine::Completed", uuid: 'uuid', max_players: 4, winner: user, players: [
+          Player.new(user: user),
+          Player.new(user: User.create(name: 'Fred', password: 'qwerty123')),
+          Player.new(user: User.create(name: 'John', password: 'qwerty123'))
+        ])
+      end
+
+      it 'return details for each game the current user has won' do
+        get game_path('won'), nil, 'AUTH_TOKEN' => user.auth_token
+
+        expect(JSON.parse(response.body)).to eq(
+          "won" => [
+            { "id" => "uuid", "max_players" => 4, "players" => [ "David", "Fred", "John" ], "winner" => "David" }
+          ]
+        )
+      end
+    end
+
+    context 'for an invalid state' do
+      it 'raises an error' do
+        expect { get game_path('parts'), nil, 'AUTH_TOKEN' => user.auth_token }.to raise_error("Unknown game state: parts")
+      end
+    end
   end
 end
