@@ -15,12 +15,12 @@ describe 'game management' do
     it 'will default the number of players to 4' do
       post games_path, nil, 'AUTH_TOKEN' => user.auth_token
       response_json = JSON.parse(response.body)
-      expect(response_json['data']['players'].count).to eq(4)
+      expect(response_json['game']['players'].count).to eq(4)
     end
 
     it 'will automatically add you to the game' do
       post games_path, nil, 'AUTH_TOKEN' => user.auth_token
-      player_1 = JSON.parse(response.body)['data']['players'][0]
+      player_1 = JSON.parse(response.body)['game']['players'][0]
       expect(player_1).to eq(
         "id" => user.id,
         "name" => user.name
@@ -30,7 +30,7 @@ describe 'game management' do
     it 'will allow you to set the number of players' do
       post games_path, { players: 5 }, 'AUTH_TOKEN' => user.auth_token
       response_json = JSON.parse(response.body)
-      expect(response_json['data']['players'].count).to eq(5)
+      expect(response_json['game']['players'].count).to eq(5)
     end
 
     it 'it will return no actions for the current user' do
@@ -156,7 +156,13 @@ describe 'game management' do
 
     context 'for an invalid state' do
       it 'raises an error' do
-        expect { get game_path('parts'), nil, 'AUTH_TOKEN' => user.auth_token }.to raise_error("Unknown game state: parts")
+        expect(
+          get game_path('parts'), nil, 'AUTH_TOKEN' => user.auth_token
+        ).to eq(400)
+        expect(JSON.parse(response.body)).to eq(
+          "status" => 'error',
+          "messages" => ["Unknown game state: parts"]
+        )
       end
     end
   end

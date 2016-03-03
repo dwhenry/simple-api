@@ -11,7 +11,7 @@ describe 'User login and sessions' do
     expect(post '/login', name: 'David', password: 'wrong').to eq(400)
     expect(JSON.parse(response.body)).to eq(
       'status' => 'error',
-      'messages' => ['Incorrect username or password']
+      'messages' => ['InvalidUsernameOrPassword']
     )
   end
 

@@ -1,0 +1,277 @@
+{
+  "players": [
+    {
+      "id": 123,
+      "name": "john",
+      "tiles": [
+        {
+          "color": "white",
+          "value": 0,
+          "owner_id": 123,
+          "visible": false,
+          "pending": false
+        },
+        {
+          "color": "black",
+          "value": 2,
+          "owner_id": 123,
+          "visible": false,
+          "pending": false
+        },
+        {
+          "color": "black",
+          "value": 6,
+          "owner_id": 123,
+          "visible": false,
+          "pending": false
+        },
+        {
+          "color": "white",
+          "value": 7,
+          "owner_id": 123,
+          "visible": false,
+          "pending": false
+        },
+        {
+          "color": "white",
+          "value": 8,
+          "owner_id": 123,
+          "visible": false,
+          "pending": true
+        }
+      ]
+    },
+    {
+      "id": 234,
+      "name": "bob",
+      "tiles": [
+        {
+          "color": "white",
+          "value": 2,
+          "owner_id": 234,
+          "visible": false,
+          "pending": false
+        },
+        {
+          "color": "white",
+          "value": 3,
+          "owner_id": 234,
+          "visible": false,
+          "pending": false
+        },
+        {
+          "color": "black",
+          "value": 7,
+          "owner_id": 234,
+          "visible": false,
+          "pending": false
+        },
+        {
+          "color": "black",
+          "value": 9,
+          "owner_id": 234,
+          "visible": false,
+          "pending": false
+        }
+      ]
+    },
+    {
+      "id": 456,
+      "name": "jones",
+      "tiles": [
+        {
+          "color": "black",
+          "value": 0,
+          "owner_id": 456,
+          "visible": false,
+          "pending": false
+        },
+        {
+          "color": "black",
+          "value": 1,
+          "owner_id": 456,
+          "visible": false,
+          "pending": false
+        },
+        {
+          "color": "white",
+          "value": 4,
+          "owner_id": 456,
+          "visible": false,
+          "pending": false
+        },
+        {
+          "color": "black",
+          "value": 8,
+          "owner_id": 456,
+          "visible": false,
+          "pending": false
+        }
+      ]
+    }
+  ],
+  "tiles": [
+    {
+      "color": "white",
+      "value": 4,
+      "owner_id": 456,
+      "visible": false,
+      "pending": false
+    },
+    {
+      "color": "black",
+      "value": 1,
+      "owner_id": 456,
+      "visible": false,
+      "pending": false
+    },
+    {
+      "color": "black",
+      "value": 8,
+      "owner_id": 456,
+      "visible": false,
+      "pending": false
+    },
+    {
+      "color": "black",
+      "value": 0,
+      "owner_id": 456,
+      "visible": false,
+      "pending": false
+    },
+    {
+      "color": "white",
+      "value": 0,
+      "owner_id": 123,
+      "visible": false,
+      "pending": false
+    },
+    {
+      "color": "black",
+      "value": 6,
+      "owner_id": 123,
+      "visible": false,
+      "pending": false
+    },
+    {
+      "color": "black",
+      "value": 7,
+      "owner_id": 234,
+      "visible": false,
+      "pending": false
+    },
+    {
+      "color": "white",
+      "value": 7,
+      "owner_id": 123,
+      "visible": false,
+      "pending": false
+    },
+    {
+      "color": "black",
+      "value": 9,
+      "owner_id": 234,
+      "visible": false,
+      "pending": false
+    },
+    {
+      "color": "black",
+      "value": 2,
+      "owner_id": 123,
+      "visible": false,
+      "pending": false
+    },
+    {
+      "color": "white",
+      "value": 3,
+      "owner_id": 234,
+      "visible": false,
+      "pending": false
+    },
+    {
+      "color": "black",
+      "value": 5,
+      "owner_id": null,
+      "visible": false,
+      "pending": false
+    },
+    {
+      "color": "white",
+      "value": 2,
+      "owner_id": 234,
+      "visible": false,
+      "pending": false
+    },
+    {
+      "color": "white",
+      "value": 6,
+      "owner_id": null,
+      "visible": false,
+      "pending": false
+    },
+    {
+      "color": "white",
+      "value": 8,
+      "owner_id": 123,
+      "visible": false,
+      "pending": true
+    },
+    {
+      "color": "black",
+      "value": 4,
+      "owner_id": null,
+      "visible": false,
+      "pending": false
+    },
+    {
+      "color": "black",
+      "value": 3,
+      "owner_id": null,
+      "visible": false,
+      "pending": false
+    },
+    {
+      "color": "white",
+      "value": 5,
+      "owner_id": null,
+      "visible": false,
+      "pending": false
+    },
+    {
+      "color": "white",
+      "value": 1,
+      "owner_id": null,
+      "visible": false,
+      "pending": false
+    },
+    {
+      "color": "white",
+      "value": 9,
+      "owner_id": null,
+      "visible": false,
+      "pending": false
+    }
+  ],
+  "turns": [
+    {
+      "player_id": 123,
+      "type": "HAND_FINALIZED",
+      "state": "CoEngine::Completed"
+    },
+    {
+      "player_id": 234,
+      "type": "HAND_FINALIZED",
+      "state": "CoEngine::Completed"
+    },
+    {
+      "player_id": 456,
+      "type": "HAND_FINALIZED",
+      "state": "CoEngine::Completed"
+    },
+    {
+      "player_id": 123,
+      "type": "GAME_TURN",
+      "state": "CoEngine::GuessTile"
+    }
+  ]
+}

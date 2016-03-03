@@ -1,8 +1,8 @@
 class GameApi
-  attr_reader :id
+  class GameNotFound < StandardError; end
 
-  delegate :actions, :view,
-    to: :@game
+  attr_reader :uuid
+  delegate :actions, :view, to: :@game
 
   def self.start(player_count, user)
     game = new(players: player_count.times.map { nil })
@@ -10,33 +10,40 @@ class GameApi
     game
   end
 
-  def initialize(id: SecureRandom.uuid, players: nil)
-    @id = id
+  def initialize(uuid: SecureRandom.uuid, players: nil)
+    @uuid = uuid
     if players
       @game = CoEngine.load(players: players)
-      Game.create(uuid: id, state: @game.state, max_players: players.count)
-    elsif players
+      Game.create(uuid: uuid, state: @game.state, max_players: players.count)
+    else
+      game_data = read
+      raise GameNotFound if game_data.blank?
       @game = CoEngine.load(read)
     end
   end
 
   def join(user)
     @game.perform(:join, user.id, name: user.name)
-    Player.create(user: user, game: Game.find_by(uuid: id))
+    Player.create(user: user, game: Game.find_by(uuid: uuid))
+    write
+  end
+
+  def perform(*args)
+    @game.perform(*args)
     write
   end
 
 private
 
   def write
-    redis.set(id, @game.export)
-    Game.where(uuid: id).update_all(state: @game.state)
-    Game.where(uuid: id).update_all(winner_id: @game.winner[:id]) if @game.winner
-    id
+    redis.set(uuid, @game.export)
+    Game.where(uuid: uuid).update_all(state: @game.state)
+    Game.where(uuid: uuid).update_all(winner_id: @game.winner[:id]) if @game.winner
+    uuid
   end
 
   def read
-    redis.get(id)
+    redis.get(uuid)
   end
 
   def redis

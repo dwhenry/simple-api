@@ -6,4 +6,5 @@ Rails.application.routes.draw do
   delete '/logout' => 'sessions#delete'
 
   resources :games
+  resources :actions
 end

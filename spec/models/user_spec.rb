@@ -36,7 +36,7 @@ describe User do
     it 'checks the password matches' do
       user = User.new(name: 'Dave', password: 'abcde5')
       expect(user.authenticate!('abcde5')).to be true
-      expect(user.authenticate!('other1')).to be false
+      expect { user.authenticate!('other1') }.to raise_error(User::InvalidUsernameOrPassword)
     end
   end
 end
