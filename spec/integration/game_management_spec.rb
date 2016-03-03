@@ -33,7 +33,7 @@ describe 'game management' do
       expect(response_json['data']['players'].count).to eq(5)
     end
 
-    xit 'it will return no actions for the current user' do
+    it 'it will return no actions for the current user' do
       post games_path, { players: 5 }, 'AUTH_TOKEN' => user.auth_token
       response_json = JSON.parse(response.body)
       expect(response_json['actions']).to eq([])
