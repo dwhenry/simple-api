@@ -47,8 +47,41 @@ The response object contains the following key pieces of information:
 
 ## Player statistics
 
-Get a quick summary of games being played, games won and games lost of the current player.
+Get a summary of games being played, games won and games lost of the current player.
 
 ```
 GET '/games', { auth_token: <auth_token> }
+```
+
+The response object has the following JSON format:
+
+```
+{
+  "playing" => 1,
+  "won" => 3,
+  "lost" => 2,
+  "wainting_for_players" => 1,
+  "can_be_joined" => 12
+}
+```
+
+## Players games by state
+
+Get a list of game the current player is in or can join.
+
+```
+GET '/games/<state>', { auth_token: <auth_token> }
+```
+
+Where state is one of playing, won, lost, waiting_for_players or can_be_joined.
+
+The response object has the following JSON format:
+
+```
+{
+  <state> => [
+    { "id" => "uuid", "max_players" => 4, "players" => [ "David", "Fred", "John" ], "winner" => nil },
+    ...
+  ]
+}
 ```
