@@ -16,6 +16,7 @@ gem 'co_engine', git: 'https://github.com/dwhenry/co-engine.git'
 
 gem 'redis'
 gem 'kramdown'
+gem 'airbrake'
 
 group :development, :test do
   gem 'pry-byebug'
