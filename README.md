@@ -77,14 +77,13 @@ Where state is one of playing, won, lost, waiting_for_players or can_be_joined.
 
 The response object has the following JSON format:
 
-```
-{
-  <state> => [
-    { "id" => "uuid", "max_players" => 4, "players" => [ "David", "Fred", "John" ], "winner" => nil },
-    ...
-  ]
-}
-```
+    {
+      <state> => [
+        { "id" => "uuid", "max_players" => 4, "players" => [ "David", "Fred", "John" ], "winner" => nil },
+        ...
+      ]
+    }
+
 
 ## Performing an action
 
@@ -119,9 +118,9 @@ The below table list action and required args for each.
 
 ### Action arguements
 
-* **pick_tile: tile_index:** refers to the position of the tile on the game board, each tile is assigned an initial 
+* **pick_tile->tile_index:** refers to the position of the tile on the game board, each tile is assigned an initial 
   position which does not chnage.
-* **move_tile: tile_position:** tile movement is achieved by repeatedly swapping the position of any two tiles 
+* **move_tile->tile_position:** tile movement is achieved by repeatedly swapping the position of any two tiles 
   (assuming they can be swapped). The tile_position is the lower index of the tile you want to swap.
-* **guess: player:** this is the name of the player whose hand you want to pick a tile from.
+* **guess->player:** this is the name of the player whose hand you want to pick a tile from.
 

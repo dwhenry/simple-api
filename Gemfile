@@ -15,6 +15,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'co_engine', git: 'https://github.com/dwhenry/co-engine.git'
 
 gem 'redis'
+gem 'kramdown'
 
 group :development, :test do
   gem 'pry-byebug'

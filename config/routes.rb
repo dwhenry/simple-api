@@ -7,4 +7,6 @@ Rails.application.routes.draw do
 
   resources :games
   resources :actions
+
+  root 'main#index'
 end

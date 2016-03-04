@@ -47,6 +47,12 @@ private
   end
 
   def redis
-    @redis ||= Redis.new
+    @redis ||= begin
+      if ENV["REDISCLOUD_URL"]
+        Redis.new(:url => ENV["REDISCLOUD_URL"])
+      else
+        Redis.new # use local version..
+      end
+    end
   end
 end
