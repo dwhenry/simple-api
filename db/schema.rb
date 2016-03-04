@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20160302082944) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "games", force: :cascade do |t|
     t.string   "uuid"
     t.string   "state"
@@ -22,7 +25,7 @@ ActiveRecord::Schema.define(version: 20160302082944) do
     t.integer  "max_players"
   end
 
-  add_index "games", ["winner_id"], name: "index_games_on_winner_id"
+  add_index "games", ["winner_id"], name: "index_games_on_winner_id", using: :btree
 
   create_table "players", force: :cascade do |t|
     t.integer  "game_id"
@@ -31,8 +34,8 @@ ActiveRecord::Schema.define(version: 20160302082944) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "players", ["game_id"], name: "index_players_on_game_id"
-  add_index "players", ["user_id"], name: "index_players_on_user_id"
+  add_index "players", ["game_id"], name: "index_players_on_game_id", using: :btree
+  add_index "players", ["user_id"], name: "index_players_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "name"
@@ -43,4 +46,6 @@ ActiveRecord::Schema.define(version: 20160302082944) do
     t.datetime "auth_token_valid_until"
   end
 
+  add_foreign_key "players", "games"
+  add_foreign_key "players", "users"
 end
