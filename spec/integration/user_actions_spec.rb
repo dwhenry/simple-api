@@ -28,7 +28,7 @@ describe 'User actions within the game' do
   it 'will successfully perform a valid action for the current player' do
     put(
       "/actions/#{uuid}",
-      { perform: :guess, player: 'bob', tile_position: 1, color: 'black', value: 11},
+      { perform: :guess, args: { player: 'bob', tile_position: 1, color: 'black', value: 11 } },
       'AUTH_TOKEN' => user.auth_token
     )
     expect(JSON.parse(response.body)).to include(
@@ -51,7 +51,7 @@ describe 'User actions within the game' do
     expect(
       put(
         "/actions/#{uuid}",
-        { perform: :guess, player: 'bob', tile_position: 1, color: 'black', value: 11},
+        { perform: :guess, args: { player: 'bob', tile_position: 1, color: 'black', value: 11 } },
         'AUTH_TOKEN' => bob.auth_token
       )
     ).to eq(400)
@@ -65,7 +65,7 @@ describe 'User actions within the game' do
     expect(
       put(
         "/actions/1234",
-        { perform: :guess, player: 'bob', tile_position: 1, color: 'black', value: 11},
+        { perform: :guess, args: { player: 'bob', tile_position: 1, color: 'black', value: 11 } },
         'AUTH_TOKEN' => bob.auth_token
       )
     ).to eq(400)
