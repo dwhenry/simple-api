@@ -1,0 +1,170 @@
+{
+  "players": [
+    {
+      "id": 123,
+      "name": "john",
+      "tiles": [
+
+      ]
+    },
+    {
+      "id": 234,
+      "name": "bob",
+      "tiles": [
+
+      ]
+    },
+    {
+      "id": 456,
+      "name": "jones",
+      "tiles": [
+
+      ]
+    }
+  ],
+  "tiles": [
+    {
+      "color": "white",
+      "value": 4,
+      "owner_id": null,
+      "visible": false,
+      "pending": false
+    },
+    {
+      "color": "black",
+      "value": 1,
+      "owner_id": null,
+      "visible": false,
+      "pending": false
+    },
+    {
+      "color": "black",
+      "value": 8,
+      "owner_id": null,
+      "visible": false,
+      "pending": false
+    },
+    {
+      "color": "black",
+      "value": 0,
+      "owner_id": null,
+      "visible": false,
+      "pending": false
+    },
+    {
+      "color": "white",
+      "value": 0,
+      "owner_id": null,
+      "visible": false,
+      "pending": false
+    },
+    {
+      "color": "black",
+      "value": 6,
+      "owner_id": null,
+      "visible": false,
+      "pending": false
+    },
+    {
+      "color": "black",
+      "value": 7,
+      "owner_id": null,
+      "visible": false,
+      "pending": false
+    },
+    {
+      "color": "white",
+      "value": 7,
+      "owner_id": null,
+      "visible": false,
+      "pending": false
+    },
+    {
+      "color": "black",
+      "value": 9,
+      "owner_id": null,
+      "visible": false,
+      "pending": false
+    },
+    {
+      "color": "black",
+      "value": 2,
+      "owner_id": null,
+      "visible": false,
+      "pending": false
+    },
+    {
+      "color": "white",
+      "value": 3,
+      "owner_id": null,
+      "visible": false,
+      "pending": false
+    },
+    {
+      "color": "black",
+      "value": 5,
+      "owner_id": null,
+      "visible": false,
+      "pending": false
+    },
+    {
+      "color": "white",
+      "value": 2,
+      "owner_id": null,
+      "visible": false,
+      "pending": false
+    },
+    {
+      "color": "white",
+      "value": 6,
+      "owner_id": null,
+      "visible": false,
+      "pending": false
+    },
+    {
+      "color": "white",
+      "value": 8,
+      "owner_id": null,
+      "visible": false,
+      "pending": false
+    },
+    {
+      "color": "black",
+      "value": 4,
+      "owner_id": null,
+      "visible": false,
+      "pending": false
+    },
+    {
+      "color": "black",
+      "value": 3,
+      "owner_id": null,
+      "visible": false,
+      "pending": false
+    },
+    {
+      "color": "white",
+      "value": 5,
+      "owner_id": null,
+      "visible": false,
+      "pending": false
+    },
+    {
+      "color": "white",
+      "value": 1,
+      "owner_id": null,
+      "visible": false,
+      "pending": false
+    },
+    {
+      "color": "white",
+      "value": 9,
+      "owner_id": null,
+      "visible": false,
+      "pending": false
+    }
+  ],
+  "turns": [
+
+  ]
+}

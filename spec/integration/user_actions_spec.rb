@@ -14,7 +14,7 @@ describe 'User actions within the game' do
   end
 
   before do
-    game_json = File.read("#{fixture_path}/picked-game-tile.json")
+    game_json = File.read(fixture)
     engine = CoEngine.load(game_json)
 
     Redis.new.set(uuid, game_json)
@@ -25,53 +25,73 @@ describe 'User actions within the game' do
     end
   end
 
-  it 'will successfully perform a valid action for the current player' do
-    put(
-      "/actions/#{uuid}",
-      { perform: :guess, args: { player: 'bob', tile_position: 1, color: 'black', value: 11 } },
-      'AUTH_TOKEN' => user.auth_token
-    )
-    expect(JSON.parse(response.body)).to include(
-      "game_id" => uuid,
-      "actions" => ["finalize_hand", "move_tile"]
-    )
-  end
+  context 'guessing a game tile' do
+    let(:fixture) { "#{fixture_path}/picked-game-tile.json" }
 
-  it 'will return error json on invalid action for the current player' do
-    expect(
-      put "/actions/#{uuid}", { perform: :finalize_hand}, 'AUTH_TOKEN' => user.auth_token
-    ).to eq(400)
-    expect(JSON.parse(response.body)).to eq(
-      "status" => 'error',
-      "messages" => ['ActionCanNotBePerformed: finalize_hand']
-    )
-  end
-
-  it 'will raise an error on valid action for an invalid player' do
-    expect(
+    it 'will successfully perform a valid action for the current player' do
       put(
         "/actions/#{uuid}",
         { perform: :guess, args: { player: 'bob', tile_position: 1, color: 'black', value: 11 } },
-        'AUTH_TOKEN' => bob.auth_token
+        'AUTH_TOKEN' => user.auth_token
       )
-    ).to eq(400)
-    expect(JSON.parse(response.body)).to eq(
-      "status" => 'error',
-      "messages" => ['NotYourTurn']
-    )
+      expect(JSON.parse(response.body)).to include(
+        "game_id" => uuid,
+        "actions" => ["finalize_hand", "move_tile"]
+      )
+    end
+
+    it 'will return error json on invalid action for the current player' do
+      expect(
+        put "/actions/#{uuid}", { perform: :finalize_hand}, 'AUTH_TOKEN' => user.auth_token
+      ).to eq(400)
+      expect(JSON.parse(response.body)).to eq(
+        "status" => 'error',
+        "messages" => ['ActionCanNotBePerformed: finalize_hand']
+      )
+    end
+
+    it 'will raise an error on valid action for an invalid player' do
+      expect(
+        put(
+          "/actions/#{uuid}",
+          { perform: :guess, args: { player: 'bob', tile_position: 1, color: 'black', value: 11 } },
+          'AUTH_TOKEN' => bob.auth_token
+        )
+      ).to eq(400)
+      expect(JSON.parse(response.body)).to eq(
+        "status" => 'error',
+        "messages" => ['NotYourTurn']
+      )
+    end
+
+    it 'will raise an error if game does not exist' do
+      expect(
+        put(
+          "/actions/1234",
+          { perform: :guess, args: { player: 'bob', tile_position: 1, color: 'black', value: 11 } },
+          'AUTH_TOKEN' => bob.auth_token
+        )
+      ).to eq(400)
+      expect(JSON.parse(response.body)).to eq(
+        "status" => 'error',
+        "messages" => ['GameNotFound']
+      )
+    end
   end
 
-  it 'will raise an error if game does not exist' do
-    expect(
+  context 'picking a game tile' do
+    let(:fixture) { "#{fixture_path}/three-of-three-players.json" }
+
+    it 'can pick a game tile' do
       put(
-        "/actions/1234",
-        { perform: :guess, args: { player: 'bob', tile_position: 1, color: 'black', value: 11 } },
-        'AUTH_TOKEN' => bob.auth_token
+        "/actions/#{uuid}",
+        { perform: :pick_tile, args: { tile_index: 15 } },
+        'AUTH_TOKEN' => user.auth_token
       )
-    ).to eq(400)
-    expect(JSON.parse(response.body)).to eq(
-      "status" => 'error',
-      "messages" => ['GameNotFound']
-    )
+      expect(JSON.parse(response.body)).to include(
+        "game_id" => uuid,
+        "actions" => ["move_tile", "pick_tile"]
+      )
+    end
   end
 end

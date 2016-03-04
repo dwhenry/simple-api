@@ -112,6 +112,11 @@ The below table list action and required args for each.
 | FinaliseTurn             | move_tile     | tile_position                       |
 | FinaliseTurn             | finalize_hand |                                     |
 
+### Limitations
+
+**finalize_hand** only appears as an action for InitialTileSelection once the user has selected the required amount of tiles 
+
+
 ### Action arguements
 
 * **pick_tile: tile_index:** refers to the position of the tile on the game board, each tile is assigned an initial 
