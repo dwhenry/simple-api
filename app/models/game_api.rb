@@ -6,7 +6,7 @@ class GameApi
 
   def self.start(player_count, user)
     game = new(players: player_count.times.map { nil })
-    game.join(user)
+    game.perform(:join, user.id, name: user.name)
     game
   end
 
@@ -14,7 +14,7 @@ class GameApi
     @uuid = uuid
     if players
       @game = CoEngine.load(players: players)
-      Game.create(uuid: uuid, state: @game.state, max_players: players.count)
+      Game.create!(uuid: uuid, state: @game.state, max_players: players.count)
     else
       game_data = read
       raise GameNotFound if game_data.blank?
@@ -22,14 +22,13 @@ class GameApi
     end
   end
 
-  def join(user)
-    @game.perform(:join, user.id, name: user.name)
-    Player.create(user: user, game: Game.find_by(uuid: uuid))
-    write
-  end
-
-  def perform(*args)
-    @game.perform(*args)
+  def perform(action, player_id, *args)
+    @game.perform(action, player_id, *args)
+    # any additional post action items then are required
+    case action.to_sym
+    when :join
+      Player.create!(user_id: player_id, game: Game.find_by(uuid: uuid))
+    end
     write
   end
 

@@ -1,6 +1,6 @@
 # Simple-API
 
-API wrapper for the (Co-Engine)[https://github.com/dwhenry/co-engine] gem.
+API wrapper for the [Co-Engine](https://github.com/dwhenry/co-engine) gem.
 
 
 ## Creating a user
