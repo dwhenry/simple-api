@@ -60,7 +60,7 @@ The response object has the following JSON format:
   "playing" => 1,
   "won" => 3,
   "lost" => 2,
-  "wainting_for_players" => 1,
+  "waiting_for_players" => 1,
   "can_be_joined" => 12
 }
 ```

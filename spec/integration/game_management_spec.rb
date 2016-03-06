@@ -55,7 +55,7 @@ describe 'game management' do
         "playing" => 0,
         "won" => 0,
         "lost" => 0,
-        "wainting_for_players" => 1,
+        "waiting_for_players" => 1,
         "can_be_joined" => 0
       )
     end
@@ -68,7 +68,7 @@ describe 'game management' do
         "playing" => 1,
         "won" => 0,
         "lost" => 0,
-        "wainting_for_players" => 0,
+        "waiting_for_players" => 0,
         "can_be_joined" => 0
       )
     end
@@ -81,7 +81,7 @@ describe 'game management' do
         "playing" => 0,
         "won" => 1,
         "lost" => 0,
-        "wainting_for_players" => 0,
+        "waiting_for_players" => 0,
         "can_be_joined" => 0
       )
     end
@@ -94,7 +94,7 @@ describe 'game management' do
         "playing" => 0,
         "won" => 0,
         "lost" => 1,
-        "wainting_for_players" => 0,
+        "waiting_for_players" => 0,
         "can_be_joined" => 0
       )
     end
@@ -107,7 +107,7 @@ describe 'game management' do
         "playing" => 0,
         "won" => 0,
         "lost" => 0,
-        "wainting_for_players" => 0,
+        "waiting_for_players" => 0,
         "can_be_joined" => 1
       )
     end

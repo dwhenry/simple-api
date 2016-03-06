@@ -11,7 +11,7 @@ class GamesController < ApplicationController
       playing:              Game.playing.for_user(@user).count,
       won:                  Game.won(@user).count,
       lost:                 Game.lost(@user).count,
-      wainting_for_players: Game.waiting.for_user(@user).count,
+      waiting_for_players:  Game.waiting.for_user(@user).count,
       can_be_joined:        Game.waiting.without_user(@user).count,
     }
   end
@@ -21,7 +21,7 @@ class GamesController < ApplicationController
       playing:              Game.playing.for_user(@user),
       won:                  Game.won(@user),
       lost:                 Game.lost(@user),
-      wainting_for_players: Game.waiting.for_user(@user),
+      waiting_for_players:  Game.waiting.for_user(@user),
       can_be_joined:        Game.waiting.without_user(@user),
     }[params[:id].to_sym] || raise("Unknown game state: #{params[:id]}")
 
