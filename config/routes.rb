@@ -8,5 +8,9 @@ Rails.application.routes.draw do
   resources :games
   resources :actions
 
+  resources :admin do
+    collection { get :reset }
+  end
+
   root 'main#index'
 end

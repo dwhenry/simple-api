@@ -6,8 +6,16 @@ class GameApi
 
   def self.start(player_count, user)
     game = new(players: player_count.times.map { nil })
-    game.perform(:join, user.id, name: user.name)
+    game.perform(:join, user.id)
     game
+  end
+
+  def self.reset
+    Player.delete_all
+    Game.delete_all
+    User.delete_all
+
+    redis.flushdb
   end
 
   def initialize(uuid: SecureRandom.uuid, players: nil)
@@ -23,12 +31,14 @@ class GameApi
   end
 
   def perform(action, player_id, *args)
-    @game.perform(action, player_id, *args)
-    # any additional post action items then are required
+    # any action specific tasks
     case action.to_sym
     when :join
+      args[0] ||= {}
+      args[0][:name] = User.find(player_id).name
       Player.create!(user_id: player_id, game: Game.find_by(uuid: uuid))
     end
+    @game.perform(action, player_id, *args)
     write
   end
 
@@ -46,6 +56,10 @@ private
   end
 
   def redis
+    self.class.redis
+  end
+
+  def self.redis
     @redis ||= begin
       if ENV["REDISCLOUD_URL"]
         Redis.new(:url => ENV["REDISCLOUD_URL"])

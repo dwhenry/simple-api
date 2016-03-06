@@ -1,0 +1,22 @@
+<%- Game.includes(:players).all.each_with_index do |game, j| %>
+  <%-
+      engine = GameApi.new(uuid: game.uuid)
+      view = engine.view(0)
+  %>
+  <h1>Game: <%= j %></h1>
+  ID: <%= game.uuid %><br>
+  <table style="width: 100%; max-width: 500px; border-spacing: 0">
+    <tr>
+      <td style="background: lightgrey; padding: 5px"><b>Players</b></td>
+      <td style="background: lightgrey; padding: 5px"><b>Player name</b></td>
+      <td style="background: lightgrey; padding: 5px"><b>Tiles</b></td>
+    </tr>
+    <%- (view[:players] || []).each_with_index do |player, i| %>
+      <tr>
+        <td style="border-bottom: solid 1px grey; padding: 5px"><%= i %></td>
+        <td style="border-bottom: solid 1px grey; padding: 5px"><%= player[:name] %></td>
+        <td style="border-bottom: solid 1px grey; padding: 5px"><%= player[:tiles] %></td>
+      </tr>
+    <% end %>
+  </table>
+<% end %>
