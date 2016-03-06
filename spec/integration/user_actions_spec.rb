@@ -35,7 +35,7 @@ describe 'User actions within the game' do
         'AUTH_TOKEN' => user.auth_token
       )
       expect(JSON.parse(response.body)).to include(
-        "game_id" => uuid,
+        "uuid" => uuid,
         "actions" => ["finalize_hand", "move_tile"]
       )
     end
@@ -89,7 +89,7 @@ describe 'User actions within the game' do
         'AUTH_TOKEN' => user.auth_token
       )
       expect(JSON.parse(response.body)).to include(
-        "game_id" => uuid,
+        "uuid" => uuid,
         "actions" => ["move_tile", "pick_tile"]
       )
     end

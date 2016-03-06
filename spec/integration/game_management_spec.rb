@@ -113,6 +113,22 @@ describe 'game management' do
     end
   end
 
+  context '#game details' do
+    let(:uuid) { GameApi.start(4, user).uuid }
+
+    it 'will return the game details' do
+      get game_path(uuid), nil, 'AUTH_TOKEN' => user.auth_token
+
+      expect(JSON.parse(response.body).keys).to eq(
+        [
+          'uuid',
+          'game',
+          'actions'
+        ]
+      )
+    end
+  end
+
   context '#list of game for a given state' do
     context 'for the playing state' do
       before do
@@ -128,7 +144,7 @@ describe 'game management' do
 
         expect(JSON.parse(response.body)).to eq(
           "playing" => [
-            { "id" => "uuid", "max_players" => 4, "players" => [ "David", "Fred", "John" ], "winner" => nil }
+            { "uuid" => "uuid", "max_players" => 4, "players" => [ "David", "Fred", "John" ], "winner" => nil }
           ]
         )
       end
@@ -148,7 +164,7 @@ describe 'game management' do
 
         expect(JSON.parse(response.body)).to eq(
           "won" => [
-            { "id" => "uuid", "max_players" => 4, "players" => [ "David", "Fred", "John" ], "winner" => "David" }
+            { "uuid" => "uuid", "max_players" => 4, "players" => [ "David", "Fred", "John" ], "winner" => "David" }
           ]
         )
       end

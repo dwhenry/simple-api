@@ -17,6 +17,6 @@ class ActionsController < ApplicationController
       args
     )
 
-    render json: { game_id: game.uuid, game: game.view(@user.id), actions: game.actions(@user.id) }
+    render json: { uuid: game.uuid, game: game.view(@user.id), actions: game.actions(@user.id) }
   end
 end

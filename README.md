@@ -73,17 +73,36 @@ Get a list of game the current player is in or can join.
 GET '/games/<state>', { auth_token: <auth_token> }
 ```
 
-Where state is one of playing, won, lost, waiting_for_players or can_be_joined.
+Where state is one of:
+ 
+    playing, won, lost, waiting_for_players or can_be_joined.
 
 The response object has the following JSON format:
 
     {
       <state> => [
-        { "id" => "uuid", "max_players" => 4, "players" => [ "David", "Fred", "John" ], "winner" => nil },
+        { "uuid" => "ABCD..", "max_players" => 4, "players" => [ "David", "Fred", "John" ], "winner" => nil },
         ...
       ]
     }
 
+## Players game
+
+To get the exact state for a specific game simply request by it's UUID:
+
+```
+GET '/games/<uuid>', { auth_token: <auth_token> }
+```
+
+The response object has the following JSON format:
+
+```
+{
+  "uuid": <uuid>,
+  "game": <Hash detailing full game view from players perspective>,
+  "actions" <Array of actions that can be performed by the current user> 
+}
+```
 
 ## Performing an action
 
