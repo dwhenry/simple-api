@@ -111,7 +111,7 @@ Send the action to be performed to the CoEngine
 The request should be in the format:
 
 ```
-GET '/games/<state>', { auth_token: <auth_token>, perform: <action to be performed>, args: <optional args to be passed with the action> }
+PUT '/actions/<game uuid>', { auth_token: <auth_token>, perform: <action to be performed>, args: <optional args to be passed with the action> }
 ```
 
 The below table list action and required args for each.

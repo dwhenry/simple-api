@@ -15,7 +15,15 @@
       <tr>
         <td style="border-bottom: solid 1px grey; padding: 5px"><%= i %></td>
         <td style="border-bottom: solid 1px grey; padding: 5px"><%= player[:name] %></td>
-        <td style="border-bottom: solid 1px grey; padding: 5px"><%= player[:tiles] %></td>
+        <td style="border-bottom: solid 1px grey; padding: 5px">
+          <%- (player[:tiles] || []).each do |tile| %>
+            <div style="background: <%= tile[:color] == 'white' ? 'black' : 'white' %>; width: 20px; height: 20px; display: inline-block; border: solid 1px black;">
+              <div style="background: <%= tile[:color] %>; margin: 2px; height: 16px;" >
+                <%= tile[:value] || '&nbsp;'.html_safe %>
+              </div>
+            </div>
+          <% end %>
+        </td>
       </tr>
     <% end %>
   </table>
