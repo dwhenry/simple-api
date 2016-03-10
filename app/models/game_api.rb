@@ -38,7 +38,8 @@ class GameApi
       args[0][:name] = User.find(player_id).name
       Player.create!(user_id: player_id, game: Game.find_by(uuid: uuid))
     end
-    @game.perform(action, player_id, *args)
+
+    @game.perform(action, player_id, *args.compact)
     write
   end
 

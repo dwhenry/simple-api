@@ -11,6 +11,8 @@ class ActionsController < ApplicationController
       args[:player_id] = Game.find_by(uuid: params[:id]).users.find_by(name: args[:player]).id
     end
 
+    args = nil if args == {}
+
     game.perform(
       params[:perform] || raise(MissingParam, :perform),
       @user.id,

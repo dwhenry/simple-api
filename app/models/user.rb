@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   class InvalidUsernameOrPassword < StandardError; end
-
+  has_many :players
+  has_many :games, through: :players
   AUTH_TOKEN_TIMEOUT = 4
 
   validates_uniqueness_of :name, message: 'has already been registered'
