@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/dwhenry/co-engine.git
-  revision: 3b200ae9ab34ff636737b1c3c3e34e3c5b593411
+  revision: a484abee5f566a59567c2e277feed136b092ab6c
   specs:
     co_engine (0.0.1)
 

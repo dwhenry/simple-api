@@ -31,6 +31,9 @@
         </tr>
       <% end %>
     </table>
+    <%- if view[:guesses] && view[:guesses][-1] %>
+      <%= view[:guesses][-1] %>
+    <% end %>
   <% end %>
 </div>
 <div class="floater">
